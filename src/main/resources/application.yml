@@ -1,0 +1,48 @@
+spring:
+  application:
+      name: loginAndRegistration
+  graphql:
+    graphiql:
+      enabled: true
+      path: /graphiql
+  security:
+    user:
+      name: admin
+      password: password
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${HUAYUNAURORA_GOOGLE_CLIENT_ID:fakeClientId}
+            client-secret: ${HUAYUNAURORA_GOOGLE_CLIENT_SECRET_KEY:fakeGoogleKey}
+            redirectUri: "{baseUrl}/login/oauth2/code/google"
+            #            redirect-uri: "http://localhost:8080/loginSuccess"
+            authorizationUri: "https://accounts.google.com/o/oauth2/v2/auth"
+            tokenUri: "https://www.googleapis.com/oauth2/v4/token"
+            userInfoUri: "https://www.googleapis.com/oauth2/v3/userinfo"
+            jwkSetUri: "https://www.googleapis.com/oauth2/v3/certs"
+            clientName: "Google"
+            scope: email, profile, openid
+
+amazon:
+  dynamodb:
+    endpoint: http://localhost:8000/
+  aws:
+    access-key: ${HUAYUNAURORA_AWS_ACCESS_KEY:fakeAccessKey}
+    secret-key: ${HUAYUNAURORA_AWS_SECRET_KEY:fakeSecretKey}
+    region: us-east-2
+
+auth:
+  baseurl: http://localhost:8080
+  login:
+    endpoint: /login
+    front-end-url: http://localhost:3000
+
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE
+
+
+

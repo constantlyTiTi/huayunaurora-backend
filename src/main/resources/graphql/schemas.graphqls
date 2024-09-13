@@ -1,0 +1,64 @@
+scalar DateTime
+
+type Account{
+    id: String
+    userName: String
+    password: String
+    provider: String
+    email:String
+    roles:[String]
+#    accountPrivileges: [String]
+    accountStatuses:[AccountStatus]
+}
+
+type AccountStatus{
+    status: String
+    localDateTime:DateTime
+}
+
+input createAccountInput{
+    user_name: String
+    password: String
+    email:String
+}
+
+input createAccountHistoryInput{
+    user_name:String
+    status:String
+    localDateTime:DateTime
+}
+
+input updateAccountFullInfoInput{
+    id: String
+    userName: String
+    password: String
+    email:String
+    roles:String
+#    accountPrivileges: [String]
+    accountStatuses:[AccountStatusInput]
+}
+
+
+input AccountStatusInput{
+    status: String
+    localDateTime:DateTime
+}
+
+
+type Query{
+    queryAccountByUserName(user_name:String):Account
+    queryAccountByEmail(email:String): Account
+}
+
+type Mutation{
+    createAccount( user_name: String, password: String, email:String, provider:String): Account
+    updateAccountUserInfo(user_name: String, password: String, email:String):String
+    deleteAccount(id: String): Boolean
+    deleteAccounts(ids:[String]):Boolean
+    updateAccountAuthorization(account: updateAccountFullInfoInput):String
+}
+
+schema {
+    query: Query
+    mutation: Mutation
+}
